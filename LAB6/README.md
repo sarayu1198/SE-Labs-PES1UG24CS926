@@ -13,6 +13,4 @@ A small Python module that prices bowling lane bookings, scores a single frame i
 | `bowling_alley.py` | The module under test |
 | `test_bowling_alley.py` | Starter test file |
 
-Keep all your Lab 6 work in this `LAB6` folder. Lab 7 will be added to this repo later.
 
-Refer to the lab handout for instructions.
