@@ -1,38 +1,37 @@
 # L6_L7_64 — Bowling Alley
 
-## Lab 7: Fuzzing for Input Validation Bugs
+Lab 7: Fuzzing for Input Validation Bugs
 
-### Files
-- `bowling_alley_parser.py` — hardened parser functions.
-- `test_bowling_alley_parser.py` — Hypothesis property-based no-crash tests.
-- `SRN_NAME_LAB7.pdf` — add your four genuine terminal screenshots (SS1–SS4).
+## About
 
-### Install dependencies
-```bash
-python3 -m pip install hypothesis pytest
-```
+A small Python module that reads bowling alley details typed in by a user: player names, frames and scoreboards. It assumes every input is well formed.
 
-### Run the application
-```bash
-python3 bowling_alley_parser.py
-```
+## Files
 
-### Run the fuzz tests
-```bash
-python3 -m pytest -v test_bowling_alley_parser.py
-```
+| File | Description |
+|------|-------------|
+| `bowling_alley_parser.py` | The buggy module you will fuzz and fix |
+| `test_bowling_alley_parser.py` | Hypothesis test template to complete |
 
-### Fuzzing properties
-Each test generates arbitrary Unicode text and `None` and verifies that its
-corresponding function does not raise an exception.
+Keep all your Lab 7 work in this `LAB7` folder.
 
-### Defensive behavior for invalid inputs
-- `format_player_name`: returns an empty string for non-string inputs.
-- `parse_frame`: returns `(0, 0)` for malformed frames or non-string inputs.
-- `parse_scoreboard`: skips malformed entries and returns `{}` for non-string inputs.
+Follow the lab handout for the full instructions. Use the file names above wherever the handout refers to the code and test files.
 
-Valid notation and valid scoreboard entries retain their intended behavior.
+## Screenshots
 
+| Screenshot | What it must show |
+|------------|-------------------|
+| SS1 | `python bowling_alley_parser.py` run on the buggy module |
+| SS2 | `pytest test_bowling_alley_parser.py` with your completed tests failing on the buggy module |
+| SS3 | `python bowling_alley_parser.py` run on your fixed module |
+| SS4 | `pytest test_bowling_alley_parser.py` with all tests passing on your fixed module |
 
+## Deliverables
 
+Commit these three files in this `LAB7` folder:
 
+1. `bowling_alley_parser.py`: your fixed module. All three functions must handle any input without crashing.
+2. `test_bowling_alley_parser.py`: your completed Hypothesis tests, one for each of the three functions.
+3. `SRN_NAME_LAB7.pdf`: screenshots SS1 to SS4 and your answers to the three reflection questions in the handout.
+
+Be ready to explain the bugs you found and how you fixed them. You may be called on to present.

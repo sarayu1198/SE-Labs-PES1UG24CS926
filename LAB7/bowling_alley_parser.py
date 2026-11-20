@@ -1,84 +1,80 @@
-"""Robust input parsers for a simple bowling-alley scoreboard."""
-
 
 def format_player_name(name):
-    """Title-case a player's name and limit it to 10 characters.
-
-    Non-string or blank inputs produce an empty string.
+    """
+    Title-cases a player name and cuts it to 10 characters.
+    Returns an empty string for invalid input.
     """
     if not isinstance(name, str):
         return ""
+
     return name.strip().title()[:10]
 
 
 def parse_frame(text):
-    """Parse one bowling frame into (first_roll, second_roll).
+    """
+    Converts frame notation into pins knocked down:
+    'X' -> (10, 0)
+    '7/' -> (7, 3)
+    '45' -> (4, 5)
 
-    Supported notation:
-      X  -> (10, 0)
-      7/ -> (7, 3)
-      45 -> (4, 5)
-
-    Invalid or unsupported input returns (0, 0).
+    Returns (0, 0) for invalid input.
     """
     if not isinstance(text, str):
-        return 0, 0
+        return (0, 0)
 
-    value = text.strip().upper()
-    if value == "X":
-        return 10, 0
+    text = text.strip().upper()
 
-    if len(value) != 2:
-        return 0, 0
+    if text == 'X':
+        return (10, 0)
 
-    first_char, second_char = value
-    if first_char not in "0123456789":
-        return 0, 0
+    if len(text) != 2:
+        return (0, 0)
 
-    first = int(first_char)
+    if not text[0].isdigit() or not text[0].isascii():
+        return (0, 0)
 
-    if second_char == "/":
-        return first, 10 - first
+    first = int(text[0])
 
-    if second_char not in "0123456789":
-        return 0, 0
+    if text[1] == '/':
+        return (first, 10 - first)
 
-    second = int(second_char)
+    if not text[1].isdigit() or not text[1].isascii():
+        return (0, 0)
+
+    second = int(text[1])
+
     if first + second > 10:
-        return 0, 0
+        return (0, 0)
 
-    return first, second
+    return (first, second)
 
 
 def parse_scoreboard(text):
-    """Parse comma-separated NAME:SCORE entries.
-
-    Malformed entries are skipped. Non-string input produces an empty dict.
     """
-    if not isinstance(text, str):
-        return {}
-
+    Parses 'Asha:150,Ravi:132' into a dictionary.
+    Invalid entries are skipped instead of causing crashes.
+    """
     scores = {}
-    for entry in text.split(","):
-        if ":" not in entry:
+
+    if not isinstance(text, str):
+        return scores
+
+    for entry in text.split(','):
+        if ':' not in entry:
             continue
 
-        name, score_text = entry.split(":", 1)
-        name = name.strip()
-        score_text = score_text.strip()
+        name, score = entry.split(':', 1)
 
-        if not name or not score_text:
+        name = name.strip()
+        score = score.strip()
+
+        if not name:
             continue
 
         try:
-            score = int(score_text)
+            scores[name] = int(score)
         except ValueError:
             continue
-
-        if score < 0:
-            continue
-
-        scores[name] = score
 
     return scores
 
