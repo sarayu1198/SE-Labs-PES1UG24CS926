@@ -33,11 +33,6 @@ corresponding function does not raise an exception.
 
 Valid notation and valid scoreboard entries retain their intended behavior.
 
-### Screenshot evidence required
-- SS1: run the original buggy `bowling_alley_parser.py`.
-- SS2: run the completed Hypothesis tests against the original buggy module and show failures.
-- SS3: run the fixed `bowling_alley_parser.py`.
-- SS4: run the Hypothesis tests against the fixed module and show all tests passing.
 
-Capture these screenshots from your own terminal after running the commands.
-Do not use fabricated or reconstructed screenshots.
+
+
